@@ -1,43 +1,27 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
+# The directory Mix will write compiled artifacts to.
+/_build/
 
-# Compiled output
-/dist
-/tmp
-/out-tsc
-/bazel-out
+# If you run "mix test --cover", coverage assets end up here.
+/cover/
 
-# Node
-app/node_modules
-/node_modules
-npm-debug.log
-yarn-error.log
+# The directory Mix downloads your dependencies sources to.
+/deps/
 
-# IDEs and editors
-.idea/
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
+# Where 3rd-party dependencies like ExDoc output generated docs.
+/doc/
 
-# Visual Studio Code
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-.history/*
+# Ignore .fetch files in case you like to edit your project deps locally.
+/.fetch
 
-# Miscellaneous
-/.angular/cache
-.sass-cache/
-/connect.lock
-/coverage
-/libpeerconnection.log
-testem.log
-/typings
+# If the VM crashes, it generates a dump, let's ignore it too.
+erl_crash.dump
 
-# System files
-.DS_Store
-Thumbs.db
+# Also ignore archive artifacts (built via "mix archive.build").
+*.ez
+
+# Temporary files, for example, from tests.
+/tmp/
+
+# Ignore package tarball (built via "mix hex.build").
+local_good-*.tar
+
