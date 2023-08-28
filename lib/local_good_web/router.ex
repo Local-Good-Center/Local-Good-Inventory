@@ -16,6 +16,9 @@ defmodule LocalGoodWeb.Router do
 
   scope "/api", LocalGoodWeb do
     pipe_through :api
+
+    resources "/events", EventController, except: [:new, :edit]
+    post "/events/scrape", EventController, :scrape
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

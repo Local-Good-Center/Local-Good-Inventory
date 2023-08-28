@@ -9,7 +9,13 @@ defmodule LocalGood.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      preferred_cli_env: [
+        vcr: :test,
+        "vcr.delete": :test,
+        "vcr.check": :test,
+        "vcr.show": :test
+      ]
     ]
   end
 
@@ -46,7 +52,8 @@ defmodule LocalGood.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:floki, "~> 0.34.3"},
       {:req, "~> 0.3.11"},
-      {:timex, "~> 3.7"}
+      {:timex, "~> 3.7"},
+      {:exvcr, "~> 0.14", only: :test}
     ]
   end
 

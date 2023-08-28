@@ -1,4 +1,4 @@
-defmodule LocalGood.Events.Scraper do
+defmodule LocalGood.EventScraper do
   @moduledoc """
   Scrapes events from the LocalGoodCenter website.
   """
@@ -10,7 +10,7 @@ defmodule LocalGood.Events.Scraper do
           image_url: String.t(),
           event_info: String.t(),
           registration_link: String.t(),
-          time: [DateTime.t()],
+          times: [DateTime.t()],
           display: boolean(),
           reservation_required: boolean()
         }
@@ -18,8 +18,8 @@ defmodule LocalGood.Events.Scraper do
   @doc """
   Parses the events page and returns a list of events.
   """
-  @spec parse_events() :: [scraped_event()]
-  def parse_events do
+  @spec get_events() :: [scraped_event()]
+  def get_events do
     {:ok, document} =
       @events_page
       |> Req.get!()
@@ -49,7 +49,8 @@ defmodule LocalGood.Events.Scraper do
         image_url: Floki.attribute(imageElement, "src") |> List.first(),
         event_info: Floki.text(event_info_element),
         registration_link: Floki.attribute(registration_link, "href") |> List.first(),
-        time: times,
+        times: times,
+        date: get_date(times),
         display: true,
         reservation_required: true
       }
@@ -57,6 +58,13 @@ defmodule LocalGood.Events.Scraper do
   end
 
   # HELPERS
+
+  def get_date(times) do
+    case List.first(times) do
+      nil -> nil
+      datetime -> Timex.to_date(datetime)
+    end
+  end
 
   defp parse_datetimes_from_element(time_element) do
     times = Floki.find(time_element, "time")
